@@ -70,6 +70,13 @@ Angular app game plan
   - Create a unit test for the sign up page.
   - Create the form.
   - Create a user service for CRUD operations on users.
+• Login Page
+  - Create a login form reuse some of the code form the sign up page.
+  - Create a login servece for authentication.
+
+
+
+
 
 
 
