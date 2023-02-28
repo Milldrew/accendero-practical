@@ -47,18 +47,29 @@ Angular app game plan
   - /signup
   - /news-feed
   - 404
-• Create a playwright for the news feed page that checks all viewport sizes.
-• Create a component for each route.
-• Create a Post type
-  Post {
-    id: number;
-    body: string;
-  }
-• Create some post mock data.
-• Create the news feed  Page.
-• Create a post servcie for CRUD operations on posts.
-• Add a modal with a form for dynamically adding posts to the news feed.
-• Dynamically add posts to the news feed.
-• With the modal
-• Create a playwright test for the modal and the CRUD operations.
+• News Feed
+  - Create a playwright for the news feed page that checks all viewport sizes.
+  - Add husky and automate the playwright tests on a pre-push hook.
+  - Setup karma/jasmine tests for the news feed page.
+  - Create a component for each route.
+  - Create a Post type
+    Post {
+      id: number;
+      body: string;
+    }
+  - Create some post mock data.
+  - Create the news feed  Page.
+  - Create a post servcie for CRUD operations on posts.
+  - Add a modal with a form for dynamically adding posts to the news feed.
+  - Dynamically add posts to the news feed.
+  - With the modal
+  - Create a playwright test for the modal and the CRUD operations.
+• Sign Up
+  - Create a playwright test to the sign up page that checks all viewport sizes.
+  - Add test to pre-push hook.
+  - Create a unit test for the sign up page.
+  - Create the form.
+  - Create a user service for CRUD operations on users.
+
+
 
