@@ -54,7 +54,8 @@ Angular app game plan
   - Create a component for each route.
   - Create a Post type
     Post {
-      id: number;
+      userId: string;
+      postId: string;
       body: string;
     }
   - Create some post mock data.
@@ -70,9 +71,24 @@ Angular app game plan
   - Create a unit test for the sign up page.
   - Create the form.
   - Create a user service for CRUD operations on users.
+  type User {
+    userId: string; // comes from the backend, and is stored in the JWT, is also retrieved on login.
+    email: string;
+    password: string;
+  }
 • Login Page
   - Create a login form reuse some of the code form the sign up page.
   - Create a login servece for authentication.
+• Full user story
+  - Implement the entire user story with playwright locally
+  - Add this to the pre-push hook.
+───────────────────
+Nestjs app game plan
+───────────────────
+- Create an api that has the POST CRUD operations.
+- Create the JWT authentication.
+- use the JWT claim to hold the user id. sub (subject) property.
+- Now create a post with a jwt in the header so that the user id is associated with the post.
 
 
 
