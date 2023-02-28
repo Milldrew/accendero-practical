@@ -1,0 +1,6 @@
+if [ "$NO_GIT_HOOKS" = 1 ]; then
+  exit 0
+fi
+
+cd ../ngx-micro-blog/
+ng test

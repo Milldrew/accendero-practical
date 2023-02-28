@@ -1,0 +1,24 @@
+{
+  "name": "accendro-practical",
+  "version": "1.0.0",
+  "description": "This repository is for completing the Accendro Practical ─────────────────── Requirements ─────────────────── • Create a repository and invite the accendro team to it. • Continuously push revisions. • Provide a list of documentation that you used while building the application. • The practical must be done by March 20th • Interviews requests will begin the week of March 20th.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milldrew/accendro-practical.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Milldrew/accendro-practical/issues"
+  },
+  "homepage": "https://github.com/Milldrew/accendro-practical#readme",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  }
+}

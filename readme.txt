@@ -47,6 +47,7 @@ Angular app game plan
   - /signup
   - /news-feed
   - 404
+• dyanmically create tab <title> values
 • News Feed
   - Create a playwright for the news feed page that checks all viewport sizes.
   - Add husky and automate the playwright tests on a pre-push hook.

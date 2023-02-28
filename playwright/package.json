@@ -1,0 +1,16 @@
+{
+  "name": "playwright-testing",
+  "version": "1.1.0",
+  "main": "index.js",
+  "author": "Andrew Miller <andrew@advaitabio.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "npx playwright test tests/test.spec.ts --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.29.1",
+    "@types/node": "^18.11.18",
+    "prettier": "^2.8.0"
+  },
+  "dependencies": {}
+}
