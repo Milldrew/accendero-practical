@@ -10,8 +10,8 @@ const changedTypescriptFiles = CHANGED_FILES_LIST.filter((filePath) =>
 console.log(`Changed typescript files: ${changedTypescriptFiles}`);
 
 changedTypescriptFiles.forEach((filePath) => {
-  filePath = filePath.replace("src/main/webapp/", "");
-  spawnSync(`ng`, ["test", "--include", filePath], {
+  filePath = filePath.replace("ngx-micro-blog/", "");
+  spawnSync(`ng`, ["test", "--include", filePath, "--watch", false], {
     stdio: ["inherit", "inherit", "inherit"],
   });
 });
