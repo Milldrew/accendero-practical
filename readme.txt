@@ -1,12 +1,12 @@
-This repository is for compelting the Accendro Practical
+This repository is for completing the Accendro Practical
 ───────────────────
 Requirements
 ───────────────────
 • Create a repository and invite the accendro team to it.
-• Continuosuly push revisions.
+• Continuously push revisions.
 • Provide a list of documentation that you used while building the application.
 • The practical must be done by March 20th
-• Interviews requests wil begin the week of March 20th.
+• Interviews requests will begin the week of March 20th.
 
 
 ───────────────────
@@ -16,7 +16,7 @@ Application Requirements
 • Allows data changes.
 • Must be a full stack solution.
 • User docker and docker-compose.
-• Demonstrate servie orchestration between more than one microservice.
+• Demonstrate service orchestration between more than one micro service.
 
 ───────────────────
 User Story
@@ -60,7 +60,7 @@ Angular app game plan
     }
   - Create some post mock data.
   - Create the news feed  Page.
-  - Create a post servcie for CRUD operations on posts.
+  - Create a post service for CRUD operations on posts.
   - Add a modal with a form for dynamically adding posts to the news feed.
   - Dynamically add posts to the news feed.
   - With the modal
@@ -78,7 +78,7 @@ Angular app game plan
   }
 • Login Page
   - Create a login form reuse some of the code form the sign up page.
-  - Create a login servece for authentication.
+  - Create a login service for authentication.
 • Full user story
   - Implement the entire user story with playwright locally
   - Add this to the pre-push hook.
@@ -103,14 +103,14 @@ Connect Angular and Nestjs
 ───────────────────
 Database
 ───────────────────
-• Create a configureation module for the database urls in the different environments.
+• Create a configuration module for the database urls in the different environments.
 • Connect the nestjs app to a postgres database.
 • Run the postgress in a docker container.
 • make sure the test run the same with the database in place.
 ───────────────────
 Dockerize the app
 ───────────────────
-Add docker configuration to in the angular app environment files and the nestjs configuartion module.
+Add docker configuration to in the angular app environment files and the nestjs configuration module.
 Create a Dockerfile for Nestjs
 Configure the webserver so that angular deeplinks work 
 Create a docker-compose file that runs the angular app and the nestjs app.
