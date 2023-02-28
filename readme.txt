@@ -85,14 +85,40 @@ Angular app game plan
 ───────────────────
 Nestjs app game plan
 ───────────────────
-- Create an api that has the POST CRUD operations.
-- Create the JWT authentication.
-- use the JWT claim to hold the user id. sub (subject) property.
-- Now create a post with a jwt in the header so that the user id is associated with the post.
-
-
-
-
-
-
+• Create an api that has the POST CRUD operations.
+  - Write tests for the full CRUD with playwright and add them to the pre-push hook.
+• Create the JWT authentication.
+• use the JWT claim to hold the user id. sub (subject) property.
+• Now create a post with a jwt in the header so that the user id is associated with the post.
+  - make this change in the playwright test
+───────────────────
+Connect Angular and Nestjs
+───────────────────
+• use the environment file in the angular app to set up the local domain.
+• replace the in browser memory services with http client services.
+  - post service
+  - user service
+  - authentication service
+• Make sure that the playwright test that does the user story works.
+───────────────────
+Database
+───────────────────
+• Create a configureation module for the database urls in the different environments.
+• Connect the nestjs app to a postgres database.
+• Run the postgress in a docker container.
+• make sure the test run the same with the database in place.
+───────────────────
+Dockerize the app
+───────────────────
+Add docker configuration to in the angular app environment files and the nestjs configuartion module.
+Create a Dockerfile for Nestjs
+Configure the webserver so that angular deeplinks work 
+Create a docker-compose file that runs the angular app and the nestjs app.
+Test Docker compose configure playwright to point at the docker compose ui
+───────────────────
+Deploy app to gcp
+───────────────────
+• Deploy the nestjs to google clour run
+• Add a build so that the angular app points at the cloud run instance.
+• Add a build so that the nestjs app points at the cloud sql instance.
 
