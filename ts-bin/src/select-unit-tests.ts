@@ -11,7 +11,7 @@ console.log(`Changed typescript files: ${changedTypescriptFiles}`);
 
 changedTypescriptFiles.forEach((filePath) => {
   filePath = filePath.replace("src/main/webapp/", "");
-  spawnSync(`ng`, ["test", "webapp", "--include", filePath], {
+  spawnSync(`ng`, ["test", "--include", filePath], {
     stdio: ["inherit", "inherit", "inherit"],
   });
 });

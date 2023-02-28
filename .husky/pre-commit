@@ -1,6 +1,19 @@
 if [ "$NO_GIT_HOOKS" = 1 ]; then
   exit 0
 fi
+test
+echo 'Starting Pre comit hook from:'
 
-cd ../ngx-micro-blog/
-ng test
+pwd
+
+echo Running prettier on: $(git diff --name-only --cached) 
+npx prettier -w $(git diff --name-only --cached)
+echo prettier complete
+
+echo ALL UNIT TESTS START
+cd src/main/webapp
+../../../ts-bin/select-unit-tests.js $(git diff --name-only --cached)
+cd ../../../
+echo UNIT TESTS finish
+echo 'Pre Commit hook finished'
+
