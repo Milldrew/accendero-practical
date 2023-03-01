@@ -1,3 +1,5 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,20 +9,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { PostComponent } from './newsfeed/post/post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NewsfeedComponent,
-    SignUpComponent
+    SignUpComponent,
+    PostComponent,
   ],
   imports: [
+    MatButtonModule,
+    MatCardModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
