@@ -56,6 +56,7 @@ Angular app game plan
   - Create a Post type
     Post {
       userId: string;
+      username: string;
       postId: string;
       body: string;
     }
