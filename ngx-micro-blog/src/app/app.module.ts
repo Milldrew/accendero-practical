@@ -1,3 +1,5 @@
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
@@ -10,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostComponent } from './newsfeed/post/post.component';
+import { FabComponent } from './newsfeed/fab/fab.component';
+import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +22,12 @@ import { PostComponent } from './newsfeed/post/post.component';
     NewsfeedComponent,
     SignUpComponent,
     PostComponent,
+    FabComponent,
+    BottomSheetComponent,
   ],
   imports: [
+    MatBottomSheetModule,
+    MatIconModule,
     MatButtonModule,
     MatCardModule,
     BrowserModule,
