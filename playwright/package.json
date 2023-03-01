@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "viewports": "npx playwright test tests/viewport-size.spec.ts --headed --browser chromium",
+    "api": "npx playwright test tests/api.spec.ts  --browser chromium",
     "test": "npx playwright test tests/test.spec.ts --headed"
   },
   "devDependencies": {

@@ -1,6 +1,8 @@
-#if [ "$NO_GIT_HOOKS" = 1 ]; then
-#  exit 0
-#fi
+if [ "$NO_GIT_HOOKS" = 1 ]; then
+  exit 0
+fi
+cd playwright
+npm run api
 #test
 #echo 'Starting Pre comit hook from:'
 #
