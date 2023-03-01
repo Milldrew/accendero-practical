@@ -5,6 +5,7 @@
   "author": "Andrew Miller <andrew@advaitabio.com>",
   "license": "MIT",
   "scripts": {
+    "viewports": "npx playwright test tests/viewport-size.spec.ts --headed --browser chromium",
     "test": "npx playwright test tests/test.spec.ts --headed"
   },
   "devDependencies": {
