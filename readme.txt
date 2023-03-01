@@ -74,6 +74,7 @@ Angular app game plan
   - Create a user service for CRUD operations on users.
   type User {
     userId: string; // comes from the backend, and is stored in the JWT, is also retrieved on login.
+    username: string;
     email: string;
     password: string;
   }
