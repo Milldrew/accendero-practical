@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
+
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: '',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
+  form: FormGroup;
 
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
 }

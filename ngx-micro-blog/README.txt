@@ -1,4 +1,5 @@
 TODO List 
+Create a Sign up page.
 Create a user service that handles 
   current userInformation
   create and update user

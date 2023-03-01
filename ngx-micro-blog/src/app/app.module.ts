@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -17,6 +17,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostComponent } from './newsfeed/post/post.component';
 import { FabComponent } from './newsfeed/fab/fab.component';
 import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.component';
+import { AuthBaseComponent } from './auth-base/auth-base.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,10 @@ import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.c
     PostComponent,
     FabComponent,
     BottomSheetComponent,
+    AuthBaseComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     FormsModule,
     MatListModule,
     MatInputModule,

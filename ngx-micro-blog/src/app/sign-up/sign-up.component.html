@@ -1,1 +1,29 @@
-<p>sign-up works!</p>
+<auth-base>
+  <form id="sign-up-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Username"
+        formControlName="username"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+</auth-base>
