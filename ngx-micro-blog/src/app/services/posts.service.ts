@@ -45,4 +45,12 @@ export class PostsService {
       body: postContent,
     });
   }
+  deletePost(postId: string): void {
+    const postIndex = this.allPosts.findIndex((post) => post.postId === postId);
+    if (postIndex !== -1) this.allPosts.splice(postIndex, 1);
+  }
+  updatePost(postId: string, postContent: string): void {
+    const postToUpdate = this.allPosts.find((post) => post.postId === postId);
+    if (postToUpdate) postToUpdate.body = postContent;
+  }
 }

@@ -6,4 +6,12 @@
   <mat-card-content>
     <p>{{ post.body }}</p>
   </mat-card-content>
+  <mat-card-actions align="end" *ngIf="post.userId === currentUserId">
+    <div (click)="editPost(post.postId)">
+      <button mat-flat-button color="accent">Edit</button>
+    </div>
+    <button mat-flat-button color="warn" (click)="deletePost(post.postId)">
+      Delete
+    </button>
+  </mat-card-actions>
 </mat-card>

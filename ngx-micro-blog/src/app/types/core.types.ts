@@ -10,3 +10,8 @@ export type Post = {
    */
   body: string;
 };
+
+export type User = {
+  userId: string;
+  username: string;
+};
