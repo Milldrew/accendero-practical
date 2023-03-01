@@ -15,3 +15,12 @@ export type User = {
   userId: string;
   username: string;
 };
+
+/**
+ * This object will be used to create a new user
+ */
+export type CreateUserDTO = {
+  username: string;
+  email: string;
+  password: string;
+};
