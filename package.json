@@ -1,11 +1,13 @@
 {
   "name": "accendro-practical",
   "version": "1.0.0",
-  "description": "This repository is for completing the Accendro Practical ─────────────────── Requirements ─────────────────── • Create a repository and invite the accendro team to it. • Continuously push revisions. • Provide a list of documentation that you used while building the application. • The practical must be done by March 20th • Interviews requests will begin the week of March 20th.",
+  "description": "Accendro practical by Andrew Miller",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start-db": "cd ./database/ && docker-compose up -d",
+    "connect-db": "PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres"
   },
   "repository": {
     "type": "git",
