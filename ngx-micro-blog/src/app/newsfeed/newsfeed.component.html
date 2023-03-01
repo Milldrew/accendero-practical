@@ -3,15 +3,9 @@
 1. build a post component
   - angular material card
 2. post component must have a palce for the users name and there post
+
 -->
-
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>John</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <p>Hello everyone I am having a good day today</p>
-  </mat-card-content>
-</mat-card>
-<br />
+<ng-container *ngFor="let post of allPosts">
+  <blog-post [post]="post"> </blog-post>
+  <br />
+</ng-container>
