@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../types/core.types';
+import { UserService } from './user.service';
 
 /**
  * Users can create update delte posts, and this data is viewable in the newsfeed
@@ -8,6 +9,7 @@ import { Post } from '../types/core.types';
   providedIn: 'root',
 })
 export class PostsService {
+  constructor(private userService: UserService) {}
   allPosts: Post[] = [
     {
       postId: '1',
@@ -35,12 +37,10 @@ export class PostsService {
     },
   ];
 
-  constructor() {}
-
   createPost(postContent: string): void {
     this.allPosts.push({
-      username: 'John',
-      userId: '1',
+      username: this.userService.currentUser.username,
+      userId: this.userService.currentUser.userId,
       postId: '5',
       body: postContent,
     });

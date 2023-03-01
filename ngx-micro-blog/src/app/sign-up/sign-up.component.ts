@@ -1,3 +1,4 @@
+import { CreateUserDTO } from '../types/core.types';
 import {
   FormGroup,
   FormControl,
@@ -6,6 +7,8 @@ import {
 } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: '',
@@ -15,7 +18,11 @@ import { Component, OnInit } from '@angular/core';
 export class SignUpComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -26,6 +33,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    this.userService.createUser(this.form.value as CreateUserDTO);
+    this.router.navigate(['/newsfeed']);
   }
 }
