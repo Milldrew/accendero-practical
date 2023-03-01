@@ -18,10 +18,6 @@ export class UserService {
     return { userId, username: createUserDto.username };
   }
 
-  findAll() {
-    return this.users;
-  }
-
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
