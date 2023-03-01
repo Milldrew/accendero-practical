@@ -7,9 +7,12 @@ test("Check all nestjs endpoints", async ({ page, browser }) => {
   console.log(body.toString());
   expect(body.toString()).toContain("Hello World");
 
-  const createUserPayload = await page.request.post(LOCAL_DOMAIN + "/user", {
-    data: { username: "username", password: "password", email: "email" },
-  });
+  const createUserPayload = await page.request.post(
+    LOCAL_DOMAIN + "/api/user",
+    {
+      data: { username: "username", password: "password", email: "email" },
+    }
+  );
   const createUserJSON = await createUserPayload.json();
   console.log(createUserJSON, "create user payload");
   expect(createUserJSON.username).toBe("username");
