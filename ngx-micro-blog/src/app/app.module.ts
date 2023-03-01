@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +29,9 @@ import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.c
     BottomSheetComponent,
   ],
   imports: [
+    FormsModule,
+    MatListModule,
+    MatInputModule,
     MatBottomSheetModule,
     MatIconModule,
     MatButtonModule,

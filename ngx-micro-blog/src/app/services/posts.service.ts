@@ -36,4 +36,13 @@ export class PostsService {
   ];
 
   constructor() {}
+
+  createPost(postContent: string): void {
+    this.allPosts.push({
+      username: 'John',
+      userId: '1',
+      postId: '5',
+      body: postContent,
+    });
+  }
 }

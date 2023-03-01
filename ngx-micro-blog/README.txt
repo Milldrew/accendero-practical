@@ -1,5 +1,7 @@
 TODO List 
-Create a fab that opens a bottom sheet
+Create a for for the bottom sheet that creates a post
+The input should have a text area and a submit button.
+And the post should get added to the all posts.
 
 
 resources

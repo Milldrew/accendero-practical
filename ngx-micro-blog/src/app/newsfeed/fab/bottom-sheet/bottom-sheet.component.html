@@ -1,1 +1,16 @@
-<p>bottom-sheet works!</p>
+<mat-form-field id="bottom-sheet-form-field">
+  <textarea
+    id="bottom-sheet-textarea"
+    [(ngModel)]="postContent"
+    matInput
+    placeholder="Your post content here..."
+  ></textarea>
+</mat-form-field>
+<button
+  (click)="createPost()"
+  color="primary"
+  id="create-post-button"
+  mat-raised-button
+>
+  Create Post
+</button>
