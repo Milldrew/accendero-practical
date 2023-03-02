@@ -1,10 +1,5 @@
 import { CreateUserDTO } from '../types/core.types';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -34,6 +29,6 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.userService.createUser(this.form.value as CreateUserDTO);
-    // this.router.navigate(['/newsfeed']);
+    this.router.navigate(['/newsfeed']);
   }
 }

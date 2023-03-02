@@ -29,9 +29,13 @@ export class UserService {
    * used to log in a user
    */
   login(loginDTO: LoginDTO) {
-    this.currentUser = {
-      userId: '1',
-      username: loginDTO.email,
-    };
+    this.http.post<User>(this.domain + '/api/user/login', loginDTO).subscribe(
+      (user) => {
+        this.currentUser = user;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
