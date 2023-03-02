@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ post.username }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ post.body }}</p>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="post.userId === currentUserId">
+    <div (click)="editPost(post.postId)">
+      <button mat-flat-button>Edit</button>
+    </div>
+    <button mat-flat-button color="warn" (click)="deletePost(post.postId)">
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>

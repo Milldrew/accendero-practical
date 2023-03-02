@@ -1,0 +1,12 @@
+<!--
+0. Create post mock data and service ✓
+1. build a post component
+  - angular material card
+2. post component must have a palce for the users name and there post
+
+-->
+<ng-container *ngFor="let post of allPosts">
+  <blog-post [post]="post"> </blog-post>
+  <br />
+</ng-container>
+<newsfeed-fab> </newsfeed-fab>

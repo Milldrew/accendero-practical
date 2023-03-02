@@ -1,0 +1,26 @@
+<mat-form-field id="bottom-sheet-form-field">
+  <textarea
+    id="bottom-sheet-textarea"
+    [(ngModel)]="postContent"
+    matInput
+    placeholder="Your post content here..."
+  ></textarea>
+</mat-form-field>
+<button
+  *ngIf="hasData"
+  (click)="editPost()"
+  color="primary"
+  id="create-post-button"
+  mat-raised-button
+>
+  Edit Post
+</button>
+<button
+  *ngIf="!hasData"
+  (click)="createPost()"
+  color="primary"
+  id="create-post-button"
+  mat-raised-button
+>
+  Create Post
+</button>

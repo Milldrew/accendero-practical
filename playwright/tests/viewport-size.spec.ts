@@ -21,7 +21,7 @@ test("visualy look at screen sizes", async ({ page }) => {
     await page.setViewportSize(currentViewPort);
   }
 
-  await page.goto("http://localhost:4200/stream/123");
+  await page.goto("http://localhost:4200/newsfeed");
   for (let viewPortId = 0; viewPortId < viewPortCount; viewPortId += 1) {
     const currentViewPort = viewPorts[viewPortId];
     await page.setViewportSize(currentViewPort);
