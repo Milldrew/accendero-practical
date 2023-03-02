@@ -34,6 +34,6 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.userService.createUser(this.form.value as CreateUserDTO);
-    this.router.navigate(['/newsfeed']);
+    // this.router.navigate(['/newsfeed']);
   }
 }
