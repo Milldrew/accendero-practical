@@ -18,6 +18,7 @@ import { PostComponent } from './newsfeed/post/post.component';
 import { FabComponent } from './newsfeed/fab/fab.component';
 import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.component';
 import { AuthBaseComponent } from './auth-base/auth-base.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthBaseComponent } from './auth-base/auth-base.component';
     AuthBaseComponent,
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     MatListModule,

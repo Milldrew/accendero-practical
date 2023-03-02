@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateUserDTO, LoginDTO, User } from '../types/core.types';
 
@@ -5,6 +6,7 @@ import { CreateUserDTO, LoginDTO, User } from '../types/core.types';
   providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
   currentUser: User = {
     userId: '1',
     username: 'John',
@@ -14,8 +16,11 @@ export class UserService {
    * Used by the sign up form to create a new user
    */
   createUser(user: CreateUserDTO) {
-    const userId = Math.random().toString(36).substr(2, 9);
-    this.currentUser = { userId, username: user.username };
+    const currentUser = this.http
+      .post<User>('/api/users', user)
+      .subscribe((user) => {
+        this.currentUser = user;
+      });
   }
 
   /**
