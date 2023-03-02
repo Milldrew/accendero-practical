@@ -11,39 +11,55 @@ export class PostService {
     @InjectRepository(Post) private readonly postRepository: Repository<Post>,
   ) {}
   create(createPostDto: CreatePostDto) {
-    const postId = Date.now().toString() + Math.random().toString().slice(2);
-    const post = this.postRepository.create({
-      ...createPostDto,
-      postId,
-    });
-    return this.postRepository.save(post);
+    try {
+      const postId = Date.now().toString() + Math.random().toString().slice(2);
+      const post = this.postRepository.create({
+        ...createPostDto,
+        postId,
+      });
+      return this.postRepository.save(post);
+    } catch (error) {
+      throw new NotFoundException(`database error`);
+    }
   }
 
   findAll() {
-    const allPosts = this.postRepository.find();
-    return allPosts;
+    try {
+      const allPosts = this.postRepository.find();
+      return allPosts;
+    } catch (error) {
+      throw new NotFoundException(`database error`);
+    }
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
-    const post = await this.postRepository.preload({
-      postId: id,
-      ...updatePostDto,
-    });
-    if (!post) {
-      throw new NotFoundException(`Post with id ${id} not found`);
+    try {
+      const post = await this.postRepository.preload({
+        postId: id,
+        ...updatePostDto,
+      });
+      if (!post) {
+        throw new NotFoundException(`Post with id ${id} not found`);
+      }
+      console.log({ post });
+      return this.postRepository.save(post);
+    } catch (error) {
+      throw new NotFoundException(`database error`);
     }
-    console.log({ post });
-    return this.postRepository.save(post);
   }
 
   async remove(id: string) {
-    const post = await this.postRepository.findOne({ where: { postId: id } });
-    console.log({ post }, 'POST FROM SERVICE');
-    if (!post) {
-      throw new NotFoundException(`Post with id ${id} not found`);
-    }
+    try {
+      const post = await this.postRepository.findOne({ where: { postId: id } });
+      console.log({ post }, 'POST FROM SERVICE');
+      if (!post) {
+        throw new NotFoundException(`Post with id ${id} not found`);
+      }
 
-    this.postRepository.remove(post);
-    return { message: `Removed ${JSON.stringify(post)} from database` };
+      this.postRepository.remove(post);
+      return { message: `Removed ${JSON.stringify(post)} from database` };
+    } catch (error) {
+      throw new NotFoundException(`database error`);
+    }
   }
 }

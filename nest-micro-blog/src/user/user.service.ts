@@ -11,57 +11,77 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
   create(createUserDto: CreateUserDto) {
-    const userId = Date.now().toString() + Math.random().toString().slice(2);
-    const newUser = {
-      userId,
-      username: createUserDto.username,
-      email: createUserDto.email,
-      password: createUserDto.password,
-    };
-    const user = this.userRepository.create(newUser);
-    return this.userRepository.save(user);
+    try {
+      const userId = Date.now().toString() + Math.random().toString().slice(2);
+      const newUser = {
+        userId,
+        username: createUserDto.username,
+        email: createUserDto.email,
+        password: createUserDto.password,
+      };
+      const user = this.userRepository.create(newUser);
+      return this.userRepository.save(user);
+    } catch (error) {
+      throw new NotFoundException(`database error`);
+    }
   }
 
   async findOneByEmail(email: string, password: string) {
-    const user = await this.userRepository.findOne({ where: { email } });
+    try {
+      const user = await this.userRepository.findOne({ where: { email } });
 
-    if (!user) {
-      throw new NotFoundException(`User with email: ${email} not found`);
+      if (!user) {
+        throw new NotFoundException(`User with email: ${email} not found`);
+      }
+      console.log(password, user.password, 'passowrd and user password');
+      if (user.password !== password) {
+        //nest error for incorrect password
+        throw new NotFoundException(`Incorrect password`);
+      }
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`database error`);
     }
-    console.log(password, user.password, 'passowrd and user password');
-    if (user.password !== password) {
-      //nest error for incorrect password
-      throw new NotFoundException(`Incorrect password`);
-    }
-    return user;
   }
 
   async findOne(id: string) {
-    const user = await this.userRepository.findOne({ where: { userId: id } });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+    try {
+      const user = await this.userRepository.findOne({ where: { userId: id } });
+      if (!user) {
+        throw new NotFoundException(`User with id ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`database error`);
     }
-    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.preload({
-      userId: id,
-      ...updateUserDto,
-    });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+    try {
+      const user = await this.userRepository.preload({
+        userId: id,
+        ...updateUserDto,
+      });
+      if (!user) {
+        throw new NotFoundException(`User with id ${id} not found`);
+      }
+      console.log(user);
+      return this.userRepository.save(user);
+    } catch (error) {
+      throw new NotFoundException(`database error`);
     }
-    console.log(user);
-    return this.userRepository.save(user);
   }
 
   async remove(id: string) {
-    const user = await this.userRepository.findOne({ where: { userId: id } });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+    try {
+      const user = await this.userRepository.findOne({ where: { userId: id } });
+      if (!user) {
+        throw new NotFoundException(`User with id ${id} not found`);
+      }
+      this.userRepository.remove(user);
+      return `Removed ${JSON.stringify(user)} from database`;
+    } catch (error) {
+      throw new NotFoundException(`database error`);
     }
-    this.userRepository.remove(user);
-    return `Removed ${JSON.stringify(user)} from database`;
   }
 }
