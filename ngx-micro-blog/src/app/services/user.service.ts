@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateUserDTO, LoginDTO, User } from '../types/core.types';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  domain = environment.apiDomain;
   constructor(private http: HttpClient) {}
   currentUser: User = {
     userId: '1',
@@ -17,7 +19,7 @@ export class UserService {
    */
   createUser(user: CreateUserDTO) {
     const currentUser = this.http
-      .post<User>('/api/users', user)
+      .post<User>(this.domain + '/api/user', user)
       .subscribe((user) => {
         this.currentUser = user;
       });
