@@ -4,7 +4,6 @@
   "description": "Accendro practical by Andrew Miller",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
     "start-db": "cd ./database/ && docker-compose up -d",
     "connect-db": "PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres"
   },
