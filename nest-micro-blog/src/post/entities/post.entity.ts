@@ -11,5 +11,6 @@ export class Post {
   /**
    * The main text of the post
    */
+  @Column()
   body: string;
 }

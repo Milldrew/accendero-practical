@@ -1,6 +1,5 @@
 import { test, devices, ViewportSize, expect } from "@playwright/test";
 const LOCAL_DOMAIN = "http://localhost:3000";
-/*
 test("Check User Endpoints", async ({ page, browser }) => {
   const rootPayload = await page.request.get(LOCAL_DOMAIN);
   const body = await rootPayload.body();
@@ -44,21 +43,21 @@ test("Check User Endpoints", async ({ page, browser }) => {
   expect(deleteUserPayloadString).toMatch(createUserJSON.userId);
   console.log(deleteUserPayloadString);
 });
-*/
 test("Check Post Endpoints", async ({ page, browser }) => {
   const createPostPayload = await page.request.post(
     LOCAL_DOMAIN + "/api/post",
     {
       data: {
         userId: "1",
-        username: "1",
+        username: "username",
         body: "post body",
       },
     }
   );
-  let createPostJSON: Buffer | string = await createPostPayload.body();
-  createPostJSON = createPostJSON.toString();
+  let createPostJSON = await createPostPayload.json();
   console.log(createPostJSON);
+  const POST_ID = createPostJSON.postId;
+  expect(createPostJSON.username).toBe("username");
 
   let getAllPostsPayload = await page.request.get(LOCAL_DOMAIN + "/api/post");
   let getAllPostsJSON: Buffer | string = await getAllPostsPayload.body();
@@ -66,7 +65,7 @@ test("Check Post Endpoints", async ({ page, browser }) => {
   console.log(getAllPostsJSON);
 
   let updatePostPayload = await page.request.patch(
-    LOCAL_DOMAIN + "/api/post/1",
+    LOCAL_DOMAIN + "/api/post/" + POST_ID,
     {
       data: {
         userId: "1",
@@ -75,13 +74,15 @@ test("Check Post Endpoints", async ({ page, browser }) => {
       },
     }
   );
-  let updatePostJSON: Buffer | string = await updatePostPayload.body();
-  updatePostJSON = updatePostJSON.toString();
+  let updatePostJSON = await updatePostPayload.json();
+  console.log(updatePostJSON);
+  expect(updatePostJSON.body).toBe("updated post body");
   console.log(updatePostJSON);
   let deletePostPayload = await page.request.delete(
-    LOCAL_DOMAIN + "/api/post/1"
+    LOCAL_DOMAIN + "/api/post/" + POST_ID
   );
   let deletePostJSON: Buffer | string = await deletePostPayload.body();
   deletePostJSON = deletePostJSON.toString();
+  expect(deletePostJSON).toMatch(POST_ID);
   console.log(deletePostJSON);
 });

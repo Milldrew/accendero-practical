@@ -7,14 +7,6 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [
-    {
-      userId: '1',
-      username: 'John',
-      email: 'john@example.com',
-      password: '123456',
-    },
-  ];
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
@@ -52,6 +44,9 @@ export class UserService {
 
   async remove(id: string) {
     const user = await this.userRepository.findOne({ where: { userId: id } });
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
     this.userRepository.remove(user);
     return `Removed ${JSON.stringify(user)} from database`;
   }
