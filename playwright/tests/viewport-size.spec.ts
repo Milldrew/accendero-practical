@@ -1,7 +1,7 @@
 import { test, devices, ViewportSize } from "@playwright/test";
 
 test("visualy look at screen sizes", async ({ page }) => {
-  await page.goto("http://localhost:4200/");
+  await page.goto("http://localhost:4200/login");
   const viewPorts: ViewportSize[] = [
     { width: 1920, height: 1080 },
     { width: 1440, height: 900 },
@@ -22,6 +22,13 @@ test("visualy look at screen sizes", async ({ page }) => {
   }
 
   await page.goto("http://localhost:4200/newsfeed");
+  for (let viewPortId = 0; viewPortId < viewPortCount; viewPortId += 1) {
+    const currentViewPort = viewPorts[viewPortId];
+    await page.setViewportSize(currentViewPort);
+  }
+
+  await page.goto("http://localhost:4200/sign-up");
+
   for (let viewPortId = 0; viewPortId < viewPortCount; viewPortId += 1) {
     const currentViewPort = viewPorts[viewPortId];
     await page.setViewportSize(currentViewPort);
