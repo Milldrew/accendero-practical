@@ -3,10 +3,3 @@ export class CreateUserDto {
   readonly email: string;
   readonly password: string;
 }
-
-export type User = {
-  userId: string;
-  username: string;
-  email: string;
-  password: string;
-};

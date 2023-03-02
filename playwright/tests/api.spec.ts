@@ -14,16 +14,14 @@ test("Check all nestjs endpoints", async ({ page, browser }) => {
     }
   );
   const createUserJSON = await createUserPayload.json();
-  console.log(createUserJSON, "create user payload");
   expect(createUserJSON.username).toBe("username");
 
   const getUserByIdPayload = await page.request.get(
-    LOCAL_DOMAIN + "/api/user/1"
+    LOCAL_DOMAIN + "/api/user/" + createUserJSON.userId
   );
-  const getUserByIdBuffer = await getUserByIdPayload.body();
-  const getUserByIdString = getUserByIdBuffer.toString();
-  console.log(getUserByIdString, "GET USER BY ID PAYLOAD");
-  expect(getUserByIdString).toBeTruthy();
+  const getUserByIdJSON = await getUserByIdPayload.json();
+  console.log(getUserByIdJSON);
+  expect(getUserByIdJSON.username).toBe("username");
 
   const updateUserPayload = await page.request.patch(
     LOCAL_DOMAIN + "/api/user/1",
