@@ -50,7 +50,9 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.userRepository.findOne({ where: { userId: id } });
+    this.userRepository.remove(user);
+    return `Removed ${JSON.stringify(user)} from database`;
   }
 }

@@ -35,12 +35,12 @@ test("Check all nestjs endpoints", async ({ page, browser }) => {
     }
   );
   const updateUserJSON = await updateUserPayload.json();
-  console.log({ updateUserJSON });
   expect(updateUserJSON.username).toBe(UPDATED_USERNAME);
   const deleteUserPayload = await page.request.delete(
-    LOCAL_DOMAIN + "/api/user/2"
+    LOCAL_DOMAIN + "/api/user/" + createUserJSON.userId
   );
   const deleteUserPayloadBuffer = await deleteUserPayload.body();
   const deleteUserPayloadString = deleteUserPayloadBuffer.toString();
+  expect(deleteUserPayloadString).toMatch(createUserJSON.userId);
   console.log(deleteUserPayloadString);
 });
