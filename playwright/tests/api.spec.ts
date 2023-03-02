@@ -18,6 +18,12 @@ test("Check User Endpoints", async ({ page, browser }) => {
   const getUserByIdPayload = await page.request.get(
     LOCAL_DOMAIN + "/api/user/" + createUserJSON.userId
   );
+  const loginUser = await page.request.post(LOCAL_DOMAIN + "/api/user/login", {
+    data: { username: "username", password: "password" },
+  });
+  const loginUserJSON = await loginUser.json();
+  console.log(loginUserJSON, "loginUserJSON");
+  expect(loginUserJSON.username).toBe("username");
   const getUserByIdJSON = await getUserByIdPayload.json();
   console.log(getUserByIdJSON);
   expect(getUserByIdJSON.username).toBe("username");

@@ -22,6 +22,20 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
+  async findOneByEmail(email: string, password: string) {
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    if (!user) {
+      throw new NotFoundException(`User with email: ${email} not found`);
+    }
+    console.log(password, user.password, 'passowrd and user password');
+    if (user.password !== password) {
+      //nest error for incorrect password
+      throw new NotFoundException(`Incorrect password`);
+    }
+    return user;
+  }
+
   async findOne(id: string) {
     const user = await this.userRepository.findOne({ where: { userId: id } });
     if (!user) {
