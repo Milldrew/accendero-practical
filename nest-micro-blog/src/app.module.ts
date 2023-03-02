@@ -10,7 +10,7 @@ import { PostModule } from './post/post.module';
     UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: '34.170.236.133',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
