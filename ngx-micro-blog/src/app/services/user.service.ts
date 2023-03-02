@@ -9,10 +9,7 @@ import { environment } from 'src/environments/environment.development';
 export class UserService {
   domain = environment.apiDomain;
   constructor(private http: HttpClient) {}
-  currentUser: User = {
-    userId: '1',
-    username: 'John',
-  };
+  currentUser: User;
 
   /**
    * Used by the sign up form to create a new user
