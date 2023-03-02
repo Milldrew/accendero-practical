@@ -19,6 +19,7 @@ import { FabComponent } from './newsfeed/fab/fab.component';
 import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.component';
 import { AuthBaseComponent } from './auth-base/auth-base.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthPanelComponent } from './auth-panel/auth-panel.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     FabComponent,
     BottomSheetComponent,
     AuthBaseComponent,
+    AuthPanelComponent,
   ],
   imports: [
     HttpClientModule,

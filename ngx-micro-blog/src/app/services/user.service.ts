@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 export class UserService {
   domain = environment.apiDomain;
   constructor(private http: HttpClient) {}
-  currentUser: User;
+  currentUser: User | null;
 
   /**
    * Used by the sign up form to create a new user
@@ -31,6 +31,22 @@ export class UserService {
       .subscribe(
         (user) => {
           this.currentUser = user;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  logout() {
+    this.currentUser = null;
+  }
+  deleteAccount() {
+    this.http
+      .delete(this.domain + '/api/user/' + this.currentUser?.userId)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.logout();
         },
         (error) => {
           console.log(error);

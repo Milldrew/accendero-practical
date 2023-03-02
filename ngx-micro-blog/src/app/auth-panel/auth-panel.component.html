@@ -1,0 +1,10 @@
+<ng-container *ngIf="currentUsername">
+  <button (click)="deleteAccount()" mat-flat-button color="warn">
+    Delete {{ currentUsername }}'s Account
+  </button>
+  <button mat-flat-button="accent" (click)="logout()">Sign Out</button>
+</ng-container>
+<ng-container *ngIf="!currentUsername">
+  <button mat-flat-button color="primary" (click)="signUp()">Sign Up</button>
+  <button mat-flat-button color="accent" (click)="login()">Login</button>
+</ng-container>

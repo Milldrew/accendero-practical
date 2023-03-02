@@ -50,6 +50,8 @@ export class PostsService {
   ];
 
   createPost(postContent: string) {
+    if (!this.userService.currentUser)
+      return console.error('No user logged in');
     return this.http
       .post<Post>(`${this.domain}/api/post`, {
         userId: this.userService.currentUser.userId,

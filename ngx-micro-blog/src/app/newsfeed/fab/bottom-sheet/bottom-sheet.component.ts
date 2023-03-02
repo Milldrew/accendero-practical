@@ -35,9 +35,15 @@ export class BottomSheetComponent {
   }
   postContent: string;
   createPost() {
-    this.postService.createPost(this.postContent).add(() => {
-      console.log('Post created ========================');
-    });
+    const result = this.postService.createPost(this.postContent);
+    if (!result) {
+      return;
+    } else {
+      result.add(() => {
+        console.log('Post created ========================');
+      });
+    }
+
     this.bottomSheet.dismiss(BottomSheetComponent);
   }
   editPost() {

@@ -18,7 +18,10 @@ export class PostComponent {
     public userService: UserService,
     private postService: PostsService
   ) {
-    if (this.currentUserId) {
+    if (
+      this.userService.currentUser !== null &&
+      this.userService.currentUser.userId
+    ) {
       this.currentUserId = this.userService.currentUser.userId;
     }
   }
