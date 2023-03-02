@@ -23,17 +23,20 @@ test("Check all nestjs endpoints", async ({ page, browser }) => {
   console.log(getUserByIdJSON);
   expect(getUserByIdJSON.username).toBe("username");
 
+  const UPDATED_USERNAME = "updated-name";
   const updateUserPayload = await page.request.patch(
-    LOCAL_DOMAIN + "/api/user/1",
+    LOCAL_DOMAIN + "/api/user/" + createUserJSON.userId,
     {
-      data: { username: "username", password: "password", email: "email" },
+      data: {
+        username: UPDATED_USERNAME,
+        password: "password",
+        email: "email",
+      },
     }
   );
-  //const updateUserJSON = await updateUserPayload.json();
-  const updateUserPayloadBuffer = await updateUserPayload.body();
-  const updateUserPayloadString = updateUserPayloadBuffer.toString();
-  console.log(updateUserPayloadString);
-  expect(updateUserPayloadString).toBeTruthy();
+  const updateUserJSON = await updateUserPayload.json();
+  console.log({ updateUserJSON });
+  expect(updateUserJSON.username).toBe(UPDATED_USERNAME);
   const deleteUserPayload = await page.request.delete(
     LOCAL_DOMAIN + "/api/user/2"
   );

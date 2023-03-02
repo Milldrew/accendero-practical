@@ -26,7 +26,6 @@ export class UserService {
       email: createUserDto.email,
       password: createUserDto.password,
     };
-    console.log({ newUser });
     const user = this.userRepository.create(newUser);
     return this.userRepository.save(user);
   }
@@ -39,8 +38,16 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.preload({
+      userId: id,
+      ...updateUserDto,
+    });
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    console.log(user);
+    return this.userRepository.save(user);
   }
 
   remove(id: number) {
