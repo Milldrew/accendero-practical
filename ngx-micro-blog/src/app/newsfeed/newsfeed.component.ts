@@ -11,7 +11,9 @@ export class NewsfeedComponent {
   allPosts: Post[];
   constructor(public postService: PostsService) {
     this.postService.getAllPosts().add(() => {
-      this.allPosts = this.postService.allPosts;
+      this.allPosts = this.postService.allPosts.sort((postA, postB) => {
+        return Number(postB.timestamp) - Number(postA.timestamp);
+      });
     });
   }
 }

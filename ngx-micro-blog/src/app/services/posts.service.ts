@@ -11,6 +11,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class PostsService {
+  allPosts: Post[] = [];
   domain = environment.apiDomain;
   constructor(private userService: UserService, private http: HttpClient) {
     this.getAllPosts();
@@ -22,34 +23,8 @@ export class PostsService {
         this.allPosts = posts;
       });
   }
-  allPosts: Post[] = [
-    {
-      postId: '1',
-      userId: '1',
-      username: 'John',
-      body: 'This is a post',
-    },
-    {
-      postId: '2',
-      userId: '2',
-      username: 'Jane',
-      body: 'This is another post',
-    },
-    {
-      postId: '3',
-      userId: '3',
-      username: 'Joe',
-      body: 'This is a third post',
-    },
-    {
-      postId: '4',
-      userId: '4',
-      username: 'Jill',
-      body: 'This is a fourth post it has a lot more text than the other posts even some lorem ipsum text Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam.',
-    },
-  ];
-
   createPost(postContent: string) {
+    const TIMESTAMP = String(Date.now());
     if (!this.userService.currentUser)
       return console.error('No user logged in');
     return this.http
@@ -57,9 +32,10 @@ export class PostsService {
         userId: this.userService.currentUser.userId,
         username: this.userService.currentUser.username,
         body: postContent,
+        timestamp: TIMESTAMP,
       })
       .subscribe((post: Post) => {
-        this.allPosts.push(post);
+        this.allPosts.unshift(post);
       }, console.error);
   }
   deletePost(postId: string): void {

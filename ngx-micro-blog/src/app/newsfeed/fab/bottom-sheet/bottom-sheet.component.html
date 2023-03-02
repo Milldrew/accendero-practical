@@ -8,6 +8,7 @@
 </mat-form-field>
 <button
   *ngIf="hasData"
+  (keyup.enter)="editPost()"
   (click)="editPost()"
   color="primary"
   id="create-post-button"
@@ -17,6 +18,7 @@
 </button>
 <button
   *ngIf="!hasData"
+  (keyup.enter)="createPost()"
   (click)="createPost()"
   color="primary"
   id="create-post-button"

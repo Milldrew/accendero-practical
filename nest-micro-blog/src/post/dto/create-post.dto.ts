@@ -5,4 +5,5 @@ export class CreatePostDto {
    * The main text of the post
    */
   body: string;
+  timestamp: string;
 }

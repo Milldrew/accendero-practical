@@ -9,6 +9,7 @@ export type Post = {
    * The main text of the post
    */
   body: string;
+  timestamp: string;
 };
 
 export type User = {

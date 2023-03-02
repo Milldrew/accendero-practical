@@ -13,4 +13,6 @@ export class Post {
    */
   @Column()
   body: string;
+  @Column()
+  timestamp: string;
 }

@@ -1,15 +1,16 @@
 import { test, devices, ViewportSize, expect } from "@playwright/test";
 const LOCAL_DOMAIN = "http://localhost:3000";
-test("Check User Endpoints", async ({ page, browser }) => {
+test("Check User Endpoints", async ({ page }) => {
   const rootPayload = await page.request.get(LOCAL_DOMAIN);
   const body = await rootPayload.body();
   console.log(body.toString());
   expect(body.toString()).toContain("Hello World");
 
+  const EMAIL = String(Math.random()) + "@gmail.com";
   const createUserPayload = await page.request.post(
     LOCAL_DOMAIN + "/api/user",
     {
-      data: { username: "username", password: "password", email: "email" },
+      data: { username: "username", password: "password", email: EMAIL },
     }
   );
   const createUserJSON = await createUserPayload.json();
@@ -19,7 +20,7 @@ test("Check User Endpoints", async ({ page, browser }) => {
     LOCAL_DOMAIN + "/api/user/" + createUserJSON.userId
   );
   const loginUser = await page.request.post(LOCAL_DOMAIN + "/api/user/login", {
-    data: { username: "username", password: "password" },
+    data: { email: EMAIL, password: "password" },
   });
   const loginUserJSON = await loginUser.json();
   console.log(loginUserJSON, "loginUserJSON");
@@ -49,7 +50,8 @@ test("Check User Endpoints", async ({ page, browser }) => {
   expect(deleteUserPayloadString).toMatch(createUserJSON.userId);
   console.log(deleteUserPayloadString);
 });
-test("Check Post Endpoints", async ({ page, browser }) => {
+
+test("Check Post Endpoints", async ({ page }) => {
   const createPostPayload = await page.request.post(
     LOCAL_DOMAIN + "/api/post",
     {
@@ -57,6 +59,7 @@ test("Check Post Endpoints", async ({ page, browser }) => {
         userId: "1",
         username: "username",
         body: "post body",
+        timestamp: String(Date.now()),
       },
     }
   );
@@ -77,6 +80,7 @@ test("Check Post Endpoints", async ({ page, browser }) => {
         userId: "1",
         username: "1",
         body: "updated post body",
+        timestap: String(Date.now()),
       },
     }
   );
