@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Post } from '../types/core.types';
 import { UserService } from './user.service';
 
@@ -9,7 +11,17 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class PostsService {
-  constructor(private userService: UserService) {}
+  domain = environment.apiDomain;
+  constructor(private userService: UserService, private http: HttpClient) {
+    this.getAllPosts();
+  }
+  getAllPosts() {
+    return this.http
+      .get<Post[]>(`${this.domain}/api/post`)
+      .subscribe((posts) => {
+        this.allPosts = posts;
+      });
+  }
   allPosts: Post[] = [
     {
       postId: '1',
@@ -37,13 +49,16 @@ export class PostsService {
     },
   ];
 
-  createPost(postContent: string): void {
-    this.allPosts.push({
-      username: this.userService.currentUser.username,
-      userId: this.userService.currentUser.userId,
-      postId: '5',
-      body: postContent,
-    });
+  createPost(postContent: string) {
+    return this.http
+      .post<Post>(`${this.domain}/api/post`, {
+        userId: this.userService.currentUser.userId,
+        username: this.userService.currentUser.username,
+        body: postContent,
+      })
+      .subscribe((post: Post) => {
+        this.allPosts.push(post);
+      }, console.error);
   }
   deletePost(postId: string): void {
     const postIndex = this.allPosts.findIndex((post) => post.postId === postId);

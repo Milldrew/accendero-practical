@@ -35,7 +35,9 @@ export class BottomSheetComponent {
   }
   postContent: string;
   createPost() {
-    this.postService.createPost(this.postContent);
+    this.postService.createPost(this.postContent).add(() => {
+      console.log('Post created ========================');
+    });
     this.bottomSheet.dismiss(BottomSheetComponent);
   }
   editPost() {

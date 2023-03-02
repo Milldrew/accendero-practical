@@ -19,20 +19,22 @@ export class UserService {
       .post<User>(this.domain + '/api/user', user)
       .subscribe((user) => {
         this.currentUser = user;
-      });
+      }, console.error);
   }
 
   /**
    * used to log in a user
    */
   login(loginDTO: LoginDTO) {
-    this.http.post<User>(this.domain + '/api/user/login', loginDTO).subscribe(
-      (user) => {
-        this.currentUser = user;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    return this.http
+      .post<User>(this.domain + '/api/user/login', loginDTO)
+      .subscribe(
+        (user) => {
+          this.currentUser = user;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

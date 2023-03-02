@@ -33,7 +33,8 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.userService.login(this.form.value as CreateUserDTO);
-    this.router.navigate(['/newsfeed']);
+    this.userService.login(this.form.value as CreateUserDTO).add(() => {
+      this.router.navigate(['/newsfeed']);
+    });
   }
 }
