@@ -10,6 +10,8 @@ import { Post } from '../types/core.types';
 export class NewsfeedComponent {
   allPosts: Post[];
   constructor(public postService: PostsService) {
-    this.allPosts = this.postService.allPosts;
+    this.postService.getAllPosts().add(() => {
+      this.allPosts = this.postService.allPosts;
+    });
   }
 }

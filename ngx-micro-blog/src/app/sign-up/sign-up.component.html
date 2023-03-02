@@ -3,6 +3,7 @@
   <form id="sign-up-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input
+        (keyup.enter)="onSubmit()"
         matInput
         type="text"
         placeholder="Username"
@@ -11,6 +12,7 @@
     </mat-form-field>
     <mat-form-field>
       <input
+        (keyup.enter)="onSubmit()"
         matInput
         type="email"
         placeholder="Email"
@@ -19,6 +21,7 @@
     </mat-form-field>
     <mat-form-field>
       <input
+        (keyup.enter)="onSubmit()"
         matInput
         type="password"
         placeholder="Password"

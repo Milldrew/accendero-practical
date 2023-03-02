@@ -11,13 +11,17 @@ import { BottomSheetComponent } from '../fab/bottom-sheet/bottom-sheet.component
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
-  currentUserId = this.userService.currentUser.userId;
+  currentUserId: string;
   @Input() post: Post;
   constructor(
     private bottomSheet: MatBottomSheet,
     public userService: UserService,
     private postService: PostsService
-  ) {}
+  ) {
+    if (this.currentUserId) {
+      this.currentUserId = this.userService.currentUser.userId;
+    }
+  }
   editPost(postId: string) {
     this.bottomSheet.open(BottomSheetComponent, {
       data: { postId },
@@ -25,5 +29,14 @@ export class PostComponent {
   }
   deletePost(postId: string) {
     this.postService.deletePost(postId);
+  }
+  ngAfterViewInit() {
+    console.log(JSON.stringify(this.post));
+    console.log(JSON.stringify(this.userService.currentUser));
+  }
+  ngDoCheck() {
+    if (this.userService.currentUser) {
+      this.currentUserId = this.userService.currentUser.userId;
+    }
   }
 }
