@@ -11,6 +11,7 @@ import { BottomSheetComponent } from '../fab/bottom-sheet/bottom-sheet.component
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
+  //  isDeleteDisabled: boolean = true;
   currentUserId: string;
   @Input() post: Post | undefined;
   constructor(
@@ -28,15 +29,7 @@ export class PostComponent {
     });
   }
   deletePost(postId: string) {
+    console.log('deletePost');
     this.postService.deletePost(postId);
-  }
-  ngAfterViewInit() {
-    console.log(JSON.stringify(this.post));
-    console.log(JSON.stringify(this.userService.currentUser));
-  }
-  ngDoCheck() {
-    if (this.userService.currentUser) {
-      this.currentUserId = this.userService.currentUser.userId;
-    }
   }
 }

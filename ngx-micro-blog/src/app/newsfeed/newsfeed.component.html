@@ -5,7 +5,7 @@
 2. post component must have a palce for the users name and there post
 
 -->
-<ng-container *ngFor="let post of allPosts">
+<ng-container *ngFor="let post of postService.allPosts">
   <blog-post [post]="post"> </blog-post>
   <br />
 </ng-container>

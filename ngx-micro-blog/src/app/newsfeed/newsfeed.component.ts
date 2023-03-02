@@ -8,16 +8,21 @@ import { Post } from '../types/core.types';
   styleUrls: ['./newsfeed.component.scss'],
 })
 export class NewsfeedComponent {
-  allPosts: Post[];
+  //allPosts: Post[];
   constructor(public postService: PostsService) {
+    /*
     this.postService.postsSubject.subscribe((posts) => {
-      this.allPosts = posts.sort((postA, postB) => {
-        return Number(postB.timestamp) - Number(postA.timestamp);
-      });
+      console.log('postsSubject', posts);
+      this.allPosts = [
+        ...posts.sort((postA, postB) => {
+          return Number(postB.timestamp) - Number(postA.timestamp);
+        }),
+      ];
     });
+    */
   }
   ngAfterContentChecked() {
-    this.postService.emitPosts();
+    //this.allPosts = this.postService.allPosts;
   }
   checkForNewPosts() {
     this.postService.getAllPosts();

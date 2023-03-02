@@ -33,16 +33,17 @@ export class PostService {
       throw new NotFoundException(`Post with id ${id} not found`);
     }
     console.log({ post });
-    return post;
+    return this.postRepository.save(post);
   }
 
   async remove(id: string) {
     const post = await this.postRepository.findOne({ where: { postId: id } });
+    console.log({ post }, 'POST FROM SERVICE');
     if (!post) {
       throw new NotFoundException(`Post with id ${id} not found`);
     }
 
     this.postRepository.remove(post);
-    return `Removed ${JSON.stringify(post)} from database`;
+    return { message: `Removed ${JSON.stringify(post)} from database` };
   }
 }

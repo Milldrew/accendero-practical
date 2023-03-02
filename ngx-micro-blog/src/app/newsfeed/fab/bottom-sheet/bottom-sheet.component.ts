@@ -36,15 +36,12 @@ export class BottomSheetComponent {
   postContent: string;
   createPost() {
     const result = this.postService.createPost(this.postContent);
-    if (!result) {
-      return;
-    } else {
-      result.add(() => {
-        console.log('Post created ========================');
-      });
-    }
 
     this.bottomSheet.dismiss(BottomSheetComponent);
+    document.getElementById('fab')?.blur();
+    setTimeout(() => {
+      document.getElementById('fab')?.blur();
+    }, 1000);
   }
   editPost() {
     this.postService.updatePost(this.data.postId, this.postContent);
