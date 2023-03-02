@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start-db": "cd ./database/ && docker-compose up -d",
-    "connect-db": "PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres"
+    "connect-db": "PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres",
+    "connect-cloud-sql": "PGPASSWORD=postgres psql 'sslmode=disable dbname=postgres user=postgres hostaddr=34.170.236.133'"
   },
   "repository": {
     "type": "git",

@@ -16,7 +16,7 @@ COPY ./ngx-micro-blog ./ngx-micro-blog
 
 WORKDIR /usr/src/app/ngx-micro-blog
 RUN npm install
-RUN npm run build
+RUN npm run build:prod
 
 WORKDIR /usr/src/app/nest-micro-blog
 RUN yarn install
@@ -37,7 +37,7 @@ RUN chown -R 1000:1000 /home/node/app/dist
 
 WORKDIR /home/node/app
 
-COPY --from=BUILD_IMAGE /usr/src/app/docs /home/node/app/docs
+COPY --from=BUILD_IMAGE /usr/src/app/ngx-micro-blog/docs /home/node/app/docs
 COPY --from=BUILD_IMAGE /usr/src/app/nest-micro-blog/dist /home/node/app/nest-micro-blog/dist
 COPY --from=BUILD_IMAGE /usr/src/app/nest-micro-blog/node_modules /home/node/app/nest-micro-blog/node_modules
 
