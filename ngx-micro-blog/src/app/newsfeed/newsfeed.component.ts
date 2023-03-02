@@ -10,10 +10,16 @@ import { Post } from '../types/core.types';
 export class NewsfeedComponent {
   allPosts: Post[];
   constructor(public postService: PostsService) {
-    this.postService.getAllPosts().add(() => {
-      this.allPosts = this.postService.allPosts.sort((postA, postB) => {
+    this.postService.postsSubject.subscribe((posts) => {
+      this.allPosts = posts.sort((postA, postB) => {
         return Number(postB.timestamp) - Number(postA.timestamp);
       });
     });
+  }
+  ngAfterContentChecked() {
+    this.postService.emitPosts();
+  }
+  checkForNewPosts() {
+    this.postService.getAllPosts();
   }
 }

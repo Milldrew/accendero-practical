@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Post } from '../types/core.types';
 import { UserService } from './user.service';
@@ -11,6 +12,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class PostsService {
+  postsSubject = new Subject<Post[]>();
   allPosts: Post[] = [];
   domain = environment.apiDomain;
   constructor(private userService: UserService, private http: HttpClient) {
@@ -21,6 +23,9 @@ export class PostsService {
       .get<Post[]>(`${this.domain}/api/post`)
       .subscribe((posts) => {
         this.allPosts = posts;
+      })
+      .add(() => {
+        this.postsSubject.next(this.allPosts);
       });
   }
   createPost(postContent: string) {
@@ -38,12 +43,22 @@ export class PostsService {
         this.allPosts.unshift(post);
       }, console.error);
   }
-  deletePost(postId: string): void {
-    const postIndex = this.allPosts.findIndex((post) => post.postId === postId);
-    if (postIndex !== -1) this.allPosts.splice(postIndex, 1);
+  deletePost(postId: string) {
+    return this.http
+      .delete(`${this.domain}/api/post/${postId}`)
+      .subscribe((message) => {
+        console.log(message);
+      })
+      .add(() => {
+        debugger;
+        this.getAllPosts();
+      });
   }
   updatePost(postId: string | undefined, postContent: string): void {
     const postToUpdate = this.allPosts.find((post) => post.postId === postId);
     if (postToUpdate) postToUpdate.body = postContent;
+  }
+  emitPosts() {
+    this.postsSubject.next(this.allPosts);
   }
 }

@@ -12,16 +12,13 @@ import { BottomSheetComponent } from '../fab/bottom-sheet/bottom-sheet.component
 })
 export class PostComponent {
   currentUserId: string;
-  @Input() post: Post;
+  @Input() post: Post | undefined;
   constructor(
     private bottomSheet: MatBottomSheet,
     public userService: UserService,
     private postService: PostsService
   ) {
-    if (
-      this.userService.currentUser !== null &&
-      this.userService.currentUser.userId
-    ) {
+    if (this.userService.currentUser && this.userService.currentUser.userId) {
       this.currentUserId = this.userService.currentUser.userId;
     }
   }
