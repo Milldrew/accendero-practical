@@ -17,6 +17,9 @@ export class PostsService {
   domain = environment.apiDomain;
   constructor(private userService: UserService, private http: HttpClient) {
     this.getAllPosts();
+    console.log('=====================');
+    console.log(this.domain);
+    console.log('=====================');
   }
   getAllPosts() {
     return this.http

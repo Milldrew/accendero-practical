@@ -7,6 +7,7 @@ test("open bowser only", async ({ page }) => {
   await page.goto("http://localhost:4200/sign-up");
 
   await page.getByRole("button", { name: "Login" }).click();
+  /*
   await page.getByPlaceholder("Email").click();
   await page.getByPlaceholder("Email").fill("foo");
   await page.getByPlaceholder("Password").click();
@@ -26,5 +27,6 @@ test("open bowser only", async ({ page }) => {
   await page.getByPlaceholder("Your post content here...").click();
   await page.getByPlaceholder("Your post content here...").fill("EDITED POST");
   await page.getByRole("button", { name: "Edit Post" }).click();
+  */
   await page.waitForTimeout(1000 * 60 * 30);
 });

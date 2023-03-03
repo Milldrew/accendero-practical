@@ -1,3 +1,3 @@
 export const environment = {
-  apiDomain: 'http://localhost:3000',
+  apiDomain: 'https://accendero-puhciuothq-uc.a.run.app',
 };

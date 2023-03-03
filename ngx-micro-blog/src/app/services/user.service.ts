@@ -8,7 +8,9 @@ import { environment } from 'src/environments/environment.development';
 })
 export class UserService {
   domain = environment.apiDomain;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    debugger;
+  }
   currentUser: User | null;
 
   /**
