@@ -1,3 +1,3 @@
 export const environment = {
-  apiDomain: 'https://api.example.com',
+  apiDomain: 'https://accendero-puhciuothq-uc.a.run.app',
 };
