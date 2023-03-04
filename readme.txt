@@ -4,8 +4,8 @@ CONNECT TO PRODUCTION DB (cloudsql)
 git checkout dockerize-it && npm run connect-cloud-sql
 
 Local DEVELOPMENT on master/ wont work on dockerize-it branch
-cd ./ngx-micro-blog && npm run start 
-cd ./nestjs-micro-blog && npm run start:dev #Starts a postgresql container
+cd ./ngx-micro-blog && npm i && npm run start 
+cd ./nestjs-micro-blog && npm i && npm run start:dev #Starts a postgresql container
 npm run connect-db #from project root to connect to the postgres docker container
 ================================================================
 Tests
