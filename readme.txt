@@ -7,7 +7,16 @@ Local DEVELOPMENT
 cd ./ngx-micro-blog && npm run start
 cd ./nestjs-micro-blog && npm run start:dev
 ================================================================
-
+Tests
+Pretty much all the testing was done via e2e and integration tests.
+With the exception of an angular unit test.
+I was using testing pre-commit and pre-push 
+and iterating on the tests
+Every end point was tested.
+In order to run the api tests you need to create user with email and password foo.
+the tests are in the playwright folder.
+and: npm run
+will list the test commands.
 ================================================================
 This repository is for completing the Accendro Practical
 ───────────────────
