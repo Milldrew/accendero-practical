@@ -1,3 +1,14 @@
+================================================================
+PRODUCTION: https://accendero-puhciuothq-uc.a.run.app/newsfeed
+CONNECT TO PRODUCTION DB (cloudsql)
+git checkout dockerize-it && npm run connect-cloud-sql
+
+Local DEVELOPMENT
+cd ./ngx-micro-blog && npm run start
+cd ./nestjs-micro-blog && npm run start:dev
+================================================================
+
+================================================================
 This repository is for completing the Accendro Practical
 ───────────────────
 Requirements
