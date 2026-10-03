@@ -69,5 +69,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "overrides": {
+    "sha.js": "2.4.12"
   }
 }
