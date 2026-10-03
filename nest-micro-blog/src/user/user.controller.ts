@@ -1,16 +1,13 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard, SessionUser } from '../auth/auth.guard';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
+/**
+ * Sign up, log in, delete your own account. GET/PATCH /api/user/:id used to
+ * return or change any user - password included - with no authentication;
+ * the client never used them, so they are gone.
+ */
 @Controller('/api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -22,24 +19,12 @@ export class UserController {
 
   @Post('login')
   login(@Body() loginUserDto: { email: string; password: string }) {
-    console.log({ loginUserDto });
-    return this.userService.findOneByEmail(
-      loginUserDto.email,
-      loginUserDto.password,
-    );
-  }
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.login(loginUserDto?.email, loginUserDto?.password);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
-  }
-
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+  remove(@Param('id') id: string, @Req() req: { user: SessionUser }) {
+    return this.userService.remove(id, req.user);
   }
 }

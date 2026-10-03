@@ -1,67 +1,67 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
+import { SessionUser } from '../auth/auth.guard';
+import { Post } from '../post/entities/post.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Post) private readonly postRepository: Repository<Post>,
+    private readonly jwt: JwtService,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    const userId = Date.now().toString() + Math.random().toString().slice(2);
-    const newUser = {
-      userId,
-      username: createUserDto.username,
-      email: createUserDto.email,
-      password: createUserDto.password,
+
+  /** The account as the client sees it: never the password (hash), plus a session token. */
+  private session(user: User) {
+    return {
+      userId: user.userId,
+      username: user.username,
+      email: user.email,
+      token: this.jwt.sign({ sub: user.userId, username: user.username }),
     };
-    const user = this.userRepository.create(newUser);
-    return this.userRepository.save(user);
   }
 
-  async findOneByEmail(email: string, password: string) {
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    if (!user) {
-      throw new NotFoundException(`User with email: ${email} not found`);
+  async create(dto: CreateUserDto) {
+    const username = String(dto?.username ?? '').trim().slice(0, 30);
+    const email = String(dto?.email ?? '').trim().toLowerCase().slice(0, 120);
+    const password = String(dto?.password ?? '');
+    if (!username || !/^\S+@\S+\.\S+$/.test(email) || password.length < 6) {
+      throw new BadRequestException('Enter a username, a valid email and a password of at least 6 characters');
     }
-    console.log(password, user.password, 'passowrd and user password');
-    if (user.password !== password) {
-      //nest error for incorrect password
-      throw new NotFoundException(`Incorrect password`);
+    if (await this.userRepository.findOne({ where: { email } })) {
+      throw new ConflictException('That email already has an account - log in instead');
     }
-    return user;
+    const user = await this.userRepository.save(
+      this.userRepository.create({
+        userId: Date.now().toString() + Math.random().toString().slice(2),
+        username,
+        email,
+        // Stored as a bcrypt hash; it used to be stored, compared and logged in plain text.
+        password: await bcrypt.hash(password, 10),
+      }),
+    );
+    return this.session(user);
   }
 
-  async findOne(id: string) {
-    const user = await this.userRepository.findOne({ where: { userId: id } });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+  async login(email: string, password: string) {
+    const user = await this.userRepository.findOne({ where: { email: String(email ?? '').trim().toLowerCase() } });
+    // One message either way, so the response does not reveal which emails exist.
+    if (!user || !(await bcrypt.compare(String(password ?? ''), user.password))) {
+      throw new UnauthorizedException('Wrong email or password');
     }
-    return user;
+    return this.session(user);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.preload({
-      userId: id,
-      ...updateUserDto,
-    });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-    console.log(user);
-    return this.userRepository.save(user);
-  }
-
-  async remove(id: string) {
-    const user = await this.userRepository.findOne({ where: { userId: id } });
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-    this.userRepository.remove(user);
-    return `Removed ${JSON.stringify(user)} from database`;
+  /** Your own account only, and your posts with it. */
+  async remove(id: string, me: SessionUser) {
+    if (id !== me.userId) throw new ForbiddenException('You can only delete your own account');
+    await this.postRepository.delete({ userId: me.userId });
+    await this.userRepository.delete({ userId: me.userId });
+    return { message: 'Account deleted' };
   }
 }
