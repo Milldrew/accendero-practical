@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { errorText, UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
 
 import { Component } from '@angular/core';
 
@@ -32,9 +33,30 @@ export class LoginComponent {
     });
   }
 
+  error = '';
+  busy = false;
+
   onSubmit() {
-    this.userService.login(this.form.value as CreateUserDTO).add(() => {
-      this.router.navigate(['/newsfeed']);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.go(this.userService.login(this.form.value));
+  }
+
+  tryDemo() {
+    this.go(this.userService.tryDemo());
+  }
+
+  private go(request: Observable<unknown>) {
+    this.busy = true;
+    this.error = '';
+    request.subscribe({
+      next: () => this.router.navigate(['/newsfeed']),
+      error: (e) => {
+        this.error = errorText(e);
+        this.busy = false;
+      },
     });
   }
 }

@@ -3,7 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { errorText, UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: '',
@@ -23,12 +24,34 @@ export class SignUpComponent implements OnInit {
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
+  error = '';
+  busy = false;
+
   onSubmit() {
-    this.userService.createUser(this.form.value as CreateUserDTO);
-    this.router.navigate(['/newsfeed']);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.go(this.userService.createUser(this.form.value));
+  }
+
+  tryDemo() {
+    this.go(this.userService.tryDemo());
+  }
+
+  private go(request: Observable<unknown>) {
+    this.busy = true;
+    this.error = '';
+    request.subscribe({
+      next: () => this.router.navigate(['/newsfeed']),
+      error: (e) => {
+        this.error = errorText(e);
+        this.busy = false;
+      },
+    });
   }
 }

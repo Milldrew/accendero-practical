@@ -21,7 +21,6 @@ export class FabComponent {
   openBottomSheet(): void {
     if (!this.userService.currentUser) {
       this.router.navigate(['/login']);
-      alert('Please login to create a post!');
       return;
     }
     this.bottomSheet.open(BottomSheetComponent);

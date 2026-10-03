@@ -18,7 +18,8 @@ import { PostComponent } from './newsfeed/post/post.component';
 import { FabComponent } from './newsfeed/fab/fab.component';
 import { BottomSheetComponent } from './newsfeed/fab/bottom-sheet/bottom-sheet.component';
 import { AuthBaseComponent } from './auth-base/auth-base.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { AuthPanelComponent } from './auth-panel/auth-panel.component';
 
 @NgModule({
@@ -47,7 +48,7 @@ import { AuthPanelComponent } from './auth-panel/auth-panel.component';
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -22,6 +22,7 @@ export class BottomSheetComponent {
     this.bottomSheetRef.afterOpened().subscribe(() => {
       if (this.data && this.data.postId) {
         this.hasData = true;
+        this.postContent = this.postService.allPosts.find((p) => p.postId === this.data.postId)?.body ?? '';
       } else {
         this.hasData = false;
       }

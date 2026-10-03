@@ -15,6 +15,9 @@ export type Post = {
 export type User = {
   userId: string;
   username: string;
+  email?: string;
+  /** Session token from sign-up or login; sent as a Bearer header. */
+  token?: string;
 };
 
 /**

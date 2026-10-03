@@ -19,6 +19,11 @@
         formControlName="password"
       />
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <p class="error" role="alert" *ngIf="error">{{ error }}</p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="busy">Submit</button>
   </form>
+  <div class="demo">
+    <span>or</span>
+    <button mat-stroked-button color="accent" type="button" (click)="tryDemo()" [disabled]="busy">Try it without signing up</button>
+  </div>
 </auth-base>

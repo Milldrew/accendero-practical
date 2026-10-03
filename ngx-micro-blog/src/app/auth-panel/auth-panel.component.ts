@@ -28,6 +28,13 @@ export class AuthPanelComponent {
     this.router.navigate(['/sign-up']);
   }
   deleteAccount() {
-    this.userService.deleteAccount();
+    if (!confirm('Delete your account and all of your posts?')) return;
+    this.userService.deleteAccount().subscribe({
+      next: () => this.router.navigate(['/newsfeed']),
+      error: console.error,
+    });
+  }
+  tryDemo() {
+    this.userService.tryDemo().subscribe({ next: () => this.router.navigate(['/newsfeed']), error: console.error });
   }
 }
